@@ -1,118 +1,145 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  ImageBackground,
+  Dimensions,
+  Image,
+  Touchable,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
+import React from 'react';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
+    <>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <ImageBackground
+        source={require('./src/assets/images/bg-forrest.jpeg')}
+        imageStyle={{
+          opacity: 0.8,
+        }}
+        style={[styles.container]}>
+        <KeyboardAvoidingView style={{flex: 1}}>
+          <View
+            style={[
+              styles.container,
+              {
+                width: Dimensions.get('window').width,
+                height: Dimensions.get('window').height,
+                backgroundColor: 'rgba(142, 68, 173, 0.5)',
+                paddingVertical: 20,
+              },
+            ]}>
+            <View style={[styles.container]}>
+              <Image
+                source={{
+                  uri: 'https://img.icons8.com/wired/64/ffffff/floating-island-forest.png',
+                }}
+                style={[styles.imgLogo]}
+              />
+              <Text style={[styles.title]}>Forrest</Text>
+            </View>
+            <View
+              style={[
+                styles.container,
+                {
+                  flex: 2,
+                },
+              ]}>
+              <View
+                style={{
+                  marginBottom: 24,
+                }}>
+                <TextInput
+                  placeholderTextColor="#e0e0e0"
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  style={[styles.input]}
+                />
+                <TextInput
+                  placeholderTextColor="#e0e0e0"
+                  placeholder="Password"
+                  keyboardType="default"
+                  secureTextEntry
+                  style={[styles.input]}
+                />
+              </View>
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    fontSize: 18,
+                    fontWeight: '600',
+                    textDecorationLine: 'underline',
+                    textDecorationColor: 'white',
+                  },
+                ]}>
+                Opp's, i forgot password
+              </Text>
+            </View>
+            <View style={[styles.container]}>
+              <TouchableOpacity style={[styles.button]}>
+                <Text style={[styles.text]}>Ok, let's go</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </ImageBackground>
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imgLogo: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  title: {
+    color: '#fff',
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    fontSize: 34,
+  },
+
+  button: {
+    backgroundColor: '#bcaabd',
+    width: Dimensions.get('window').width * 0.5,
+    height: 42,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+  },
+
+  text: {
+    color: 'white',
+    fontSize: Platform.OS === 'ios' ? 16 : 14,
+    fontWeight: '500',
+  },
+
+  input: {
+    paddingHorizontal: 8,
+    paddingVertical: Platform.OS === 'ios' ? 14 : 10,
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    width: Dimensions.get('window').width - 64,
+    color: 'white',
+    fontSize: Platform.OS === 'ios' ? 18 : 14,
+  },
+});
